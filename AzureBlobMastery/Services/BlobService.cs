@@ -11,24 +11,39 @@ namespace AzureBlobMastery.Services
             _blobClient = blobClient;
         }
 
-        public Task<string> BetBlob(string name, string containerName)
+        public async Task<string> BetBlob(string name, string containerName)
         {
-            throw new NotImplementedException();
+            var client = _blobClient.GetBlobContainerClient(containerName);
+            var blobClient = client.GetBlobClient(name);
+
+            return blobClient.Uri.AbsoluteUri;
         }
 
-        public Task DeleteBlob(string name, string containerName)
+        public async Task<bool> DeleteBlob(string name, string containerName)
         {
-            throw new NotImplementedException();
+            var client = _blobClient.GetBlobContainerClient(containerName);
+            var res = await client.DeleteBlobIfExistsAsync(name);
+            return res.Value;
         }
 
-        public Task<List<string>> GetAllBlobs(string containerName)
+        public async Task<List<string>> GetAllBlobs(string containerName)
         {
-            throw new NotImplementedException();
+            var client = _blobClient.GetBlobContainerClient(containerName);
+            var blobs = client.GetBlobsAsync();
+            var blobStrings = new List<string>();
+            await foreach(var blob in blobs)
+            {
+                blobStrings.Add(blob.Name);
+            }
+
+            return blobStrings;
         }
 
-        public Task UploadBlob(string name, IFormFile file, string containerName)
+        public async Task<bool> UploadBlob(string name, IFormFile file, string containerName)
         {
-            throw new NotImplementedException();
+            var client = _blobClient.GetBlobContainerClient(containerName);
+            var result = await client.UploadBlobAsync(name, file.OpenReadStream());
+            return result is null ? false : true;
         }
     }
 }
