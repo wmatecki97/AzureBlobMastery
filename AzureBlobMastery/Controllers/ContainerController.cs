@@ -1,4 +1,5 @@
-﻿using AzureBlobMastery.Services;
+﻿using AzureBlobMastery.Models;
+using AzureBlobMastery.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzureBlobMastery.Controllers
@@ -16,6 +17,24 @@ namespace AzureBlobMastery.Controllers
         {
             var allContainers = await containerSErvice.GetAllContainer();
             return View(allContainers);
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await containerSErvice.DeleteContainer(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Create()
+        {
+            return View(new Container());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Container container)
+        {
+            await containerSErvice.CreateContainer(container.Name);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
