@@ -10,6 +10,7 @@ builder.Services.AddSingleton(b => new BlobServiceClient(
     ));
 
 builder.Services.AddSingleton<IContainerService, ContainerService>();
+builder.Services.AddSingleton<IBlobService, BlobService>();
 
 var app = builder.Build();
 
