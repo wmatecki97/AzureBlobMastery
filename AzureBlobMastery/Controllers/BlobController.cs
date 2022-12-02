@@ -41,5 +41,20 @@ namespace AzureBlobMastery.Controllers
 
             return View();
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ViewFile(string name, string containerName)
+        {
+            return Redirect(await blobService.GetBlob(name, containerName));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteFile(string name, string containerName)
+        {
+            await blobService.DeleteBlob(name, containerName);
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

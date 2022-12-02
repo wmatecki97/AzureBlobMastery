@@ -1,4 +1,5 @@
 ﻿using AzureBlobMastery.Models;
+using AzureBlobMastery.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +7,17 @@ namespace AzureBlobMastery.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IContainerService cs;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IContainerService cs)
         {
-            _logger = logger;
+            this.cs = cs;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var containersAndBlobs = await cs.GetAllContainerAndBlobs();
+            return View(containersAndBlobs);
         }
 
         public IActionResult Privacy()

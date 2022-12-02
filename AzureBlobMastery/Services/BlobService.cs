@@ -11,7 +11,7 @@ namespace AzureBlobMastery.Services
             _blobClient = blobClient;
         }
 
-        public async Task<string> BetBlob(string name, string containerName)
+        public async Task<string> GetBlob(string name, string containerName)
         {
             var client = _blobClient.GetBlobContainerClient(containerName);
             var blobClient = client.GetBlobClient(name);

@@ -36,9 +36,23 @@ namespace AzureBlobMastery.Services
             return containerNames;
         }
 
-        public Task<List<string>> GetAllContainerAndBlobs()
+        public async Task<List<string>> GetAllContainerAndBlobs()
         {
-            throw new NotImplementedException();
+
+            var containersAndBlobs = new List<string>();
+            
+            await foreach (var c in _BlobClient.GetBlobContainersAsync())
+            {
+                containersAndBlobs.Add("--"+c.Name);
+                var client = _BlobClient.GetBlobContainerClient(c.Name);
+                await foreach(var b in client.GetBlobsAsync())
+                {
+                    containersAndBlobs.Add("----" + b.Name);
+                }
+                containersAndBlobs.Add("------------------------------------------");
+            }
+
+            return containersAndBlobs;
         }
     }
 }
