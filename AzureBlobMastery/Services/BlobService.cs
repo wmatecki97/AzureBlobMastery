@@ -1,4 +1,6 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using AzureBlobMastery.Models;
 
 namespace AzureBlobMastery.Services
 {
@@ -39,10 +41,25 @@ namespace AzureBlobMastery.Services
             return blobStrings;
         }
 
-        public async Task<bool> UploadBlob(string name, IFormFile file, string containerName)
+        public async Task<bool> UploadBlob(string name, IFormFile file, string containerName, Blob blob)
         {
             var client = _blobClient.GetBlobContainerClient(containerName);
-            var result = await client.UploadBlobAsync(name, file.OpenReadStream());
+            var blobClient = client.GetBlobClient(name);
+
+            IDictionary<string, string> metadata = new Dictionary<string, string>()
+            {
+                ["title"] = blob.Title,
+                ["comment"] = blob.Comment
+            };
+            var httpHeaders = new BlobHttpHeaders()
+            {
+                ContentType = file.ContentType
+            };
+
+            var result = await blobClient.UploadAsync(file.OpenReadStream(), httpHeaders, metadata);
+
+
+            
             return result is null ? false : true;
         }
     }

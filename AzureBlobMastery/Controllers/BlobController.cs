@@ -1,4 +1,5 @@
-﻿using AzureBlobMastery.Services;
+﻿using AzureBlobMastery.Models;
+using AzureBlobMastery.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzureBlobMastery.Controllers
@@ -26,7 +27,7 @@ namespace AzureBlobMastery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFile(IFormFile file, string containerName)
+        public async Task<IActionResult> AddFile(Blob blob, IFormFile file, string containerName)
         {
             if (file is null || file.Length < 1)
             {
@@ -34,7 +35,7 @@ namespace AzureBlobMastery.Controllers
             }
 
             var filename = Path.GetFileNameWithoutExtension(file.Name)+Guid.NewGuid()+Path.GetExtension(file.FileName);
-            var result = await blobService.UploadBlob(filename, file, containerName);
+            var result = await blobService.UploadBlob(filename, file, containerName, blob);
 
             if (result)
                 return RedirectToAction("Index", "Container");

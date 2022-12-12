@@ -45,9 +45,17 @@ namespace AzureBlobMastery.Services
             {
                 containersAndBlobs.Add("--"+c.Name);
                 var client = _BlobClient.GetBlobContainerClient(c.Name);
+                var blobContainer = _BlobClient.GetBlobContainerClient(c.Name);
                 await foreach(var b in client.GetBlobsAsync())
                 {
-                    containersAndBlobs.Add("----" + b.Name);
+                    var blobClient = blobContainer.GetBlobClient(b.Name);
+                    BlobProperties blobProperties = await blobClient.GetPropertiesAsync();
+                    string blobToAdd = b.Name;
+                    if (blobProperties.Metadata.ContainsKey("title"))
+                    {
+                        blobToAdd += "(" + blobProperties.Metadata["title"] + ")";
+                    }
+                    containersAndBlobs.Add("----" + blobToAdd);
                 }
                 containersAndBlobs.Add("------------------------------------------");
             }
