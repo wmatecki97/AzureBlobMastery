@@ -1,0 +1,18 @@
+﻿@model List<Blob>
+
+<div class="p-4 container">
+    <div class="row">
+        <h4 class="text-primaty">Images</h4>
+    </div>
+    <div class="row">
+        @foreach (var image in Model)
+        {
+           <div class="col-4 border p-2">
+               <h4 class="text-success">@image.Title</h4>
+               <img src="@image.Uri" width="100%"/>
+           </div>
+        }
+    </div>
+</div>
+
+
