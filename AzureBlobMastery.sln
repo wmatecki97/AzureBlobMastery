@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobMastery", "AzureBlobMastery\AzureBlobMastery.csproj", "{143C4238-825B-493A-B31A-D5C8327D1987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureBlobMastery", "AzureBlobMastery\AzureBlobMastery.csproj", "{143C4238-825B-493A-B31A-D5C8327D1987}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionTangyWeb", "AzureFunctionTangyWeb\AzureFunctionTangyWeb.csproj", "{9C79390A-D35E-4532-8498-FCD8D564122D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{143C4238-825B-493A-B31A-D5C8327D1987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143C4238-825B-493A-B31A-D5C8327D1987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143C4238-825B-493A-B31A-D5C8327D1987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C79390A-D35E-4532-8498-FCD8D564122D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C79390A-D35E-4532-8498-FCD8D564122D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C79390A-D35E-4532-8498-FCD8D564122D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C79390A-D35E-4532-8498-FCD8D564122D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
